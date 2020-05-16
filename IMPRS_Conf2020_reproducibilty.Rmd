@@ -1,0 +1,39 @@
+---
+title: "Reproducibility workshop"
+author: "Eirini Zormpa"
+output: html_document
+---
+
+# Set up
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages}
+# install.packages("readr")
+# install.packages("tidyr")
+# install.packages("dplyr")
+# install.packages("ggplot2")
+
+library(readr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+# Read data
+Oh no, my computer is in danger!
+Fix the code below so that it uses a relative path.
+
+```{r read_data}
+setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRS_Conf2020")
+ds <- read_csv("world-happiness/2019.csv")
+```
+
+Hint: you might want to use the 'here' package
+
+```{r}
+glimpse(ds)
+```
+
