@@ -12,17 +12,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load_packages}
 # install.packages("readr")
+# install.packages("janitor")
 # install.packages("tidyr")
 # install.packages("dplyr")
 # install.packages("magrittr")
-# install.packages("janitor")
+# install.packages("forcats")
 # install.packages("ggplot2")
 
+# to read in data as tibbles
 library(readr)
-library(tidyr)
-library(dplyr)
-library(magrittr)
+# for easy data (in this case name) cleaning
 library(janitor)
+# for tidying data
+library(tidyr)
+# for wranglingdata
+library(dplyr)
+# for pipes
+library(magrittr)
+# for all your factor needs
+library(forcats)
+# for beautiful plots
 library(ggplot2)
 ```
 
@@ -60,8 +69,52 @@ Now that we got our data into R, let's see what it looks like!
 glimpse(ds)
 ```
 
-```{r}
+Before we go any further, we need to deal with these names.
+Spaces are generally not allowed in column names in R (here R is forced to accept them by using the backticks ``).
+A really handy way to do this is by using the 'janitor' package.
+
+```{r clean_names}
 ds = janitor::clean_names(ds)
 ```
 
+Let's take a look at what this has done:
+
+```{r check_names}
+glimpse(ds)
+```
+
+Okay, that looks much better!
+
+Let's explore our data a little bit.
+I'm from Greece and was curious to see how Greece ranks in this survey.
+
+```{r greece_happiness}
+ds %>% filter(country_or_region == "Greece")
+```
+
+Feel free to explore these data a little bit too!
+```{r }
+# pick a country (whichever country) and see where it ranks
+# head on over to mentimeter and tell us what rank you got!
+
+```
+
+Let's play around with plots a little bit
+
+```{r rank_lollipop}
+ds %>%
+  filter(overall_rank <= 10) %>%
+  arrange(desc(overall_rank)) %>%
+  mutate(country_or_region = factor(country_or_region, levels = country_or_region)) %>%
+  ggplot(aes(x=country_or_region, y=score)) +
+  geom_point(size = 4, colour = "orange") + 
+  geom_segment( aes(x=country_or_region, xend=country_or_region, y=6.5, yend=score)) +
+  coord_flip() +
+  theme_bw() +
+  xlab("")
+```
+
+```{r}
+fct_reorder(ds$score, overall_rank)
+```
 
