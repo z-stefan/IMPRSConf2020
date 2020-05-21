@@ -14,26 +14,54 @@ knitr::opts_chunk$set(echo = TRUE)
 # install.packages("readr")
 # install.packages("tidyr")
 # install.packages("dplyr")
+# install.packages("magrittr")
+# install.packages("janitor")
 # install.packages("ggplot2")
 
 library(readr)
 library(tidyr)
 library(dplyr)
+library(magrittr)
+library(janitor)
 library(ggplot2)
 ```
 
-# Read data
-Oh no, my computer is in danger!
-Fix the code below so that it uses a relative path.
+In this workshop we'll go through some basics on how to create, structure, and document reproducible projects in R.
+We will then create an online version of that project that everyone can interact with *without having to download anything*.
 
-```{r read_data}
+For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
+The data come from [kaggle](https://www.kaggle.com/) and you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
+
+# Read data
+Before we do anything, we need to get some data into R.
+You can see below my feeble attempt to read in the data from 2019.
+I mean... it works (you can try it), but my computer is in danger!
+
+```{r read_data_bad}
 setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRS_Conf2020")
 ds <- read_csv("world-happiness/2019.csv")
 ```
 
-Hint: you might want to use the 'here' package
+We can do better than this!
 
-```{r}
+```{r read_data_good}
+# read in the data using a relative path
+# if you ran the code above feel free to use 'ds' when reimporting the data
+
+```
+
+Hint: you might want to use the 'here' package to create the relative paths.
+
+
+Now that we got our data into R, let's see what it looks like!
+
+```{r glimpse_data}
+# glimpse is a function from the dplyr package that gives you a, well, glimpse of your tibbles.
 glimpse(ds)
 ```
+
+```{r}
+ds = janitor::clean_names(ds)
+```
+
 
