@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # install.packages("tidyr")
 # install.packages("dplyr")
 # install.packages("magrittr")
-# install.packages("forcats")
 # install.packages("ggplot2")
 
 # to read in data as tibbles
@@ -29,11 +28,14 @@ library(tidyr)
 library(dplyr)
 # for pipes
 library(magrittr)
-# for all your factor needs
-library(forcats)
 # for beautiful plots
 library(ggplot2)
 ```
+
+```{r session_info}
+sessionInfo()
+```
+
 
 In this workshop we'll go through some basics on how to create, structure, and document reproducible projects in R.
 We will then create an online version of that project that everyone can interact with *without having to download anything*.
@@ -85,6 +87,8 @@ glimpse(ds)
 
 Okay, that looks much better!
 
+# Explore
+
 Let's explore our data a little bit.
 I'm from Greece and was curious to see how Greece ranks in this survey.
 
@@ -99,7 +103,10 @@ Feel free to explore these data a little bit too!
 
 ```
 
-Let's play around with plots a little bit
+# Plots
+
+Let's play around with plots a little bit.
+Here I've made a lollipop plot of the 10 happiest countries, ordered by their overall score.
 
 ```{r rank_lollipop}
 ds %>%
@@ -107,14 +114,17 @@ ds %>%
   arrange(desc(overall_rank)) %>%
   mutate(country_or_region = factor(country_or_region, levels = country_or_region)) %>%
   ggplot(aes(x=country_or_region, y=score)) +
-  geom_point(size = 4, colour = "orange") + 
+  geom_point(size = 4, colour = "skyblue") + 
   geom_segment( aes(x=country_or_region, xend=country_or_region, y=6.5, yend=score)) +
   coord_flip() +
   theme_bw() +
-  xlab("")
+  labs(x = "Overall happiness score", y = "")
 ```
 
-```{r}
-fct_reorder(ds$score, overall_rank)
+# Analysis
+
+```{r your_plot}
+# feel free to practice ggplot here if you like and plot whatever you find interesting.
+# the data for previous years is also available so you could explore how the ranking of countries may have changed.
 ```
 
