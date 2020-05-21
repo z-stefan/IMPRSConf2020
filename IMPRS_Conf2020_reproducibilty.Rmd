@@ -10,6 +10,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+It's generally nice to load your packages at the beginning of the script.
+That way whoever is looking at your script knows what packages they will need.
+I like listing the install command at the beginning as well (commented out), so people can install packages if they want to.
+
 ```{r load_packages}
 # install.packages("readr")
 # install.packages("janitor")
@@ -24,13 +28,25 @@ library(readr)
 library(janitor)
 # for tidying data
 library(tidyr)
-# for wranglingdata
+# for wrangling data
 library(dplyr)
 # for pipes
 library(magrittr)
 # for beautiful plots
 library(ggplot2)
 ```
+
+Loading the packages gives me some warnings.
+These are okay to ignore, R is just telling me that I have loaded packages that share function names.
+Whichever was loaded last will be the one called, but I can still access the masked function by specifying which package I want.
+This won't really be an issue today, but something to keep in mind.
+
+It's really important to tell people what versions software you used for your analysis.
+The reason it's important is that software updates can very easily break your code (e.g. the recent R 4.0 version release).
+So if someone (including yourself) tries to run your code in 5 years, it's quite likely that some parts of it won't work.
+If people know what versions last worked (and if they really care), they can always go back and try to reproduce the analysis with those versions.
+That's *a lot* of work for the reproducer, but it's very easy to share, so why not!
+An easy way to report these versions is by printing the session info at the beginning or the end of your analysis.
 
 ```{r session_info}
 sessionInfo()
