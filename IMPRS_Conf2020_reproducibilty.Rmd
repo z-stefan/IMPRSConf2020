@@ -81,12 +81,22 @@ There are great for a lot of creative work, e.g. articles or presentations, but 
 If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
 
 Okay so how do we add a license to our project?
-You can do this really easily from GitHub.
+You can do this really easily from GitHub:
 
-We have finally made a change to this project!
-If you look at the 'Git' tab (the pane where your environment, history etc. are) you should see a new file!
-Go ahead and click on the box to add the LICENSE file and commit it with an informative message.
-And then just push to your GitHub fork of this project!
+1. Click on ```Create new file```
+2. Name your new file "LICENSE"
+3. Click on ```Choose a license template```
+4. Select the MIT license
+5. Commit your changes
+
+Okay, we've actually made a change to this project!!
+Note that now you have a file on your GitHub project that doesn't exist on your local version of the project.
+It is now time to **pull** from GitHub.
+Go to your R Studio and click on your Git tab (on the pane where your Environment is, by default on the top right).
+There you will see a light blue arrow going down.
+Click on it!
+
+You should now see the LICENSE file if you look at your folder!
 
 ### README
 Another important piece of documentation you should include in **every single project** is a README file.
