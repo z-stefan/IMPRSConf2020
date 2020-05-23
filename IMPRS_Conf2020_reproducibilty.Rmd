@@ -80,14 +80,16 @@ You may have heard of the Creative Commons (CC) licenses.
 There are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
 If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
 
+#### practice
 Okay so how do we add a license to our project?
 You can do this really easily from GitHub:
 
 1. Click on ```Create new file```
 2. Name your new file "LICENSE"
 3. Click on ```Choose a license template```
-4. Select the MIT license
-5. Commit your changes
+4. Select the MIT license (you can also preview your changes at this point)
+5. Add an informative commit message
+6. Click on ```Commit directly to the master branck```
 
 Okay, we've actually made a change to this project!!
 Note that now you have a file on your GitHub project that doesn't exist on your local version of the project.
@@ -100,7 +102,31 @@ You should now see the LICENSE file if you look at your folder!
 
 ### README
 Another important piece of documentation you should include in **every single project** is a README file.
-README files
+What you should include in your README depends on the project you're sharing, but it should generally include information on:
+
+* what your project is about
+* installation instructions
+* prerequisites
+* license information
+* contributors
+
+I'm going to assume that you'd mostly be sharing code to allow other to reproduce your results.
+In that case, you should also include instructions on the order in which people should run your scripts.
+
+GitHub really tries to get people to add README files.
+You'll see that it's already asking you to ```Add a README```
+
+#### practice
+So let's not disappoint GitHub!
+To create a README file:
+
+1. Click on the ```Add a README``` button
+2. Edit the file to include relevant information (you don't need to spend too much time on this right now)
+3. Write an informative commit message
+4. Commit your changes
+
+Again, make sure to go back to your R Studio and pull the changes you made from GitHub to your local repository.
+
 
 ### Codebook
 
@@ -179,8 +205,8 @@ You can see below my feeble attempt to read in the data from 2019.
 I mean... it works (you can try it), but my computer is in danger!
 
 ```{r read_data_bad, message=FALSE}
-setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRS_Conf2020")
-ds <- read_csv("world-happiness/2019.csv")
+setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRSConf2020")
+ds <- read_csv("raw-data/2019.csv")
 ```
 
 We can do better than this!
