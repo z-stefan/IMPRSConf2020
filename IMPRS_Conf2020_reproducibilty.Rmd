@@ -25,7 +25,7 @@ Prerequisites:
 * git is installed
 * git and R Studio have been connected
 * you have created a GitHub account
-* you have created an R project with version control from [here](https://github.com/eirini-zormpa/IMPRS_Conf2020).
+* you have created an R project with version control from [here](https://github.com/eirini-zormpa/IMPRSConf2020).
 
 Your level of R proficiency really doesn't matter for this, most interaction with code will be basically incidental.
 That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling, plotting, or analysis) if you feel like it.
@@ -53,58 +53,44 @@ You're in this workshop already, so I'm guessing you have your own answers to th
 So let's get started on **how to make your analyses more reproducible**.
 
 # Set up
-Most of what we'll cover today does not actually involve much code--we'll mostly cover how to set up your projects  with reproducibility in mind.
+Most of what we'll cover today does not actually involve much code--we'll mostly work on setting up projects with reproducibility in mind.
 
 ## Documentation
 Good documentation is vital for helping others not only reproduce, but also understand your code.
 As you may have noticed, this project has absolutely none if it.
 That's because we'll be making it together!
-We'll be using ```rrtools``` to create some of our documentation.
-Packages like ```rrtools``` are great for learning reproducibility because:
-
-1. they make it easy to not forget any steps
-2. they come with templates and clear instructions on what to include to write good documentation.
-
-You can read more about the ```rrtools``` package [here](https://github.com/benmarwick/rrtools).
-To install the ```rrrtools``` package you just need to run the command:
-
-```{r}
-# install.packages("devtools")
-devtools::install_github("benmarwick/rrtools")
-```
 
 
 ### License
-I cannot stress how important it is that you license everything you share.
+I cannot stress how important it is that you **license everything you share**.
 Licenses are important because they tell others how they can use whatever it is you have shared.
 
 **If you don't attach a license to your code/data/materials/whatever you're severely limiting how people can use it.**.
 
 You hold the copyright of whatever it is you have created.
-As you are the copyright holder, anyone who wants to use your work should technically ask for your permission to be do do.
+As you^[or often your employer] are the copyright holder, anyone who wants to use your work should technically ask for your permission to be do do.
 Attaching a license to your work is like giving instructions to others about what they can do with it without having to ask you every time.
 Technically, you could just come up with your own licenses for whatever you share.
-But as we all know, just because you *could* do something doesn't mean you *should*.
+But...
+
+![](images/goldblum.gif)
+
 There are **many** licenses out there that are well-recognised and  should cover whatever it is you want people to be able to do with your work.
 You may have heard of the Creative Commons (CC) licenses.
 There are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
 If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
 
-The ```rrtools``` package gives a super easy way of attaching an MIT license to our work, so we'll just go ahead and use that.
-To do that, you just need to run the command ```usethis::use_mit_license(name = "My Name")```.
-Make sure to run commands like this, relating to the structure of your project, in your *console*.
-This is not an action you want to be repeating, so don't include it in your script.
-
-So go to your console, copy the command above, and replace "My Name" with, well, your name.
-Check your project, you should see a file called "LICENSE".
+Okay so how do we add a license to our project?
+You can do this really easily from GitHub.
 
 We have finally made a change to this project!
 If you look at the 'Git' tab (the pane where your environment, history etc. are) you should see a new file!
-Go ahead and click on the box to add the README file and commit it with an informative message.
+Go ahead and click on the box to add the LICENSE file and commit it with an informative message.
 And then just push to your GitHub fork of this project!
 
 ### README
-
+Another important piece of documentation you should include in **every single project** is a README file.
+README files
 
 ### Codebook
 
