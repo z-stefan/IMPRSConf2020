@@ -1,20 +1,139 @@
 ---
 title: "Reproducibility workshop"
 author: "Eirini Zormpa"
-output: html_document
+date: "5th of June 2020"
+output:
+  html_document: 
+    code_folding: show
+    highlight: tango
+    bibliography: bibliography.bib
+    theme: flatly
+    toc: yes
+    toc_float: yes
 ---
-
-# Set up
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+In this workshop we'll go through some basics on how to create, structure, and document reproducible projects in R.
+By the end of this workshop you will have created an online version of that project that everyone can interact with **without having to download anything**. In the process you'll also get some practice with git and GitHub.
+
+Prerequisites:
+
+* R and R Studio are installed
+* git is installed
+* git and R Studio have been connected
+* you have created a GitHub account
+* you have created an R project with version control from [here](https://github.com/eirini-zormpa/IMPRS_Conf2020).
+
+Your level of R proficiency really doesn't matter for this, most interaction with code will be basically incidental.
+That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling, plotting, or analysis) if you feel like it.
+
+You also don't need to be super comfortable with Git.
+We will not be doing anything particularly advanced here and I will always include the commands you will need.
+In fact, everything we are doing should be possible through the R Studio IDE for git.
+
+# Some basics
+## Definitions
+Before we get started, it's probably useful to agree on some definitions.
+Thrilling stuff, I know, but bear with me.
+*Reproducibility* has been taken to mean a variety of things, but here by reproducibility I mean *the ability to use someone else's data and code to get the same results they did*.
+You could also call that *computational reproducibility*.
+I quite like the chart from the [Turing Way](https://the-turing-way.netlify.app/reproducibility/03/definitions), reproduced below [@turing_way2019]:
+
+![](images/turing_way_reproducibility.PNG)
+
+## Why does reproducibility matter?
+You're in this workshop already, so I'm guessing you have your own answers to this, but here's my two cents:
+
+* reproducibility is a minimum requirement for verifying research.
+* reproducibility can make you more organised and save you time if you ever need to go back to some of your analyses.
+
+So let's get started on **how to make your analyses more reproducible**.
+
+# Set up
+Most of what we'll cover today does not actually involve much code--we'll mostly cover how to set up your projects  with reproducibility in mind.
+
+## Documentation
+Good documentation is vital for helping others not only reproduce, but also understand your code.
+As you may have noticed, this project has absolutely none if it.
+That's because we'll be making it together!
+We'll be using ```rrtools``` to create some of our documentation.
+Packages like ```rrtools``` are great for learning reproducibility because:
+
+1. they make it easy to not forget any steps
+2. they come with templates and clear instructions on what to include to write good documentation.
+
+You can read more about the ```rrtools``` package [here](https://github.com/benmarwick/rrtools).
+To install the ```rrrtools``` package you just need to run the command:
+
+```{r}
+# install.packages("devtools")
+devtools::install_github("benmarwick/rrtools")
+```
+
+
+### License
+I cannot stress how important it is that you license everything you share.
+Licenses are important because they tell others how they can use whatever it is you have shared.
+
+**If you don't attach a license to your code/data/materials/whatever you're severely limiting how people can use it.**.
+
+You hold the copyright of whatever it is you have created.
+As you are the copyright holder, anyone who wants to use your work should technically ask for your permission to be do do.
+Attaching a license to your work is like giving instructions to others about what they can do with it without having to ask you every time.
+Technically, you could just come up with your own licenses for whatever you share.
+But as we all know, just because you *could* do something doesn't mean you *should*.
+There are **many** licenses out there that are well-recognised and  should cover whatever it is you want people to be able to do with your work.
+You may have heard of the Creative Commons (CC) licenses.
+There are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
+If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
+
+The ```rrtools``` package gives a super easy way of attaching an MIT license to our work, so we'll just go ahead and use that.
+To do that, you just need to run the command ```usethis::use_mit_license(name = "My Name")```.
+Make sure to run commands like this, relating to the structure of your project, in your *console*.
+This is not an action you want to be repeating, so don't include it in your script.
+
+So go to your console, copy the command above, and replace "My Name" with, well, your name.
+Check your project, you should see a file called "LICENSE".
+
+We have finally made a change to this project!
+If you look at the 'Git' tab (the pane where your environment, history etc. are) you should see a new file!
+Go ahead and click on the box to add the README file and commit it with an informative message.
+And then just push to your GitHub fork of this project!
+
+### README
+
+
+### Codebook
+
+
+## R Projects
+If you're seeing this file, you're actually already using an R project! That's **awesome**.
+What's so great about R projects you may ask?
+
+Well, they:
+
+* Are self-contained.
+  * Everything that someone may need to reproduce your analysis **should live in the same project folder**.
+* Start in a new session, giving you a clean environment without any loaded data, functions, or packages.
+* Set the working directory to the project root, meaning you can use relative paths that will work on **anyone's** computer, not just yours! We'll talk about relative paths more later on.
+
+And if that's not enough, they can also save your computer from arson!
+![](images/computer_on_fire.PNG)
+
 It's generally nice to load your packages at the beginning of the script.
 That way whoever is looking at your script knows what packages they will need.
 I like listing the install command at the beginning as well (commented out), so people can install packages if they want to.
 
-```{r load_packages}
+
+## Folder structure
+
+
+# Example code
+## Install packages
+```{r load_packages, collapse=TRUE}
 # install.packages("readr")
 # install.packages("janitor")
 # install.packages("tidyr")
@@ -41,36 +160,36 @@ These are okay to ignore, R is just telling me that I have loaded packages that 
 Whichever was loaded last will be the one called, but I can still access the masked function by specifying which package I want.
 This won't really be an issue today, but something to keep in mind.
 
-It's really important to tell people what versions software you used for your analysis.
-The reason it's important is that software updates can very easily break your code (e.g. the recent R 4.0 version release).
-So if someone (including yourself) tries to run your code in 5 years, it's quite likely that some parts of it won't work.
+## Session info
+It's really important to tell people what **software versions** you used for your analysis.
+The reason it's important is that software updates can very easily break your code (e.g. the recent R 4.0.0 version release).
+That is, if someone (including yourself) tries to run your code in 5 years, it's quite likely that some parts of it won't work.
+
 If people know what versions last worked (and if they really care), they can always go back and try to reproduce the analysis with those versions.
 That's *a lot* of work for the reproducer, but it's very easy to share, so why not!
 An easy way to report these versions is by printing the session info at the beginning or the end of your analysis.
+By the end of the workshop you'll (hopefully) know of better ways to help others reproduce your code.
 
 ```{r session_info}
 sessionInfo()
 ```
 
-
-In this workshop we'll go through some basics on how to create, structure, and document reproducible projects in R.
-We will then create an online version of that project that everyone can interact with *without having to download anything*.
-
+## Read data
 For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
 The data come from [kaggle](https://www.kaggle.com/) and you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
 
-# Read data
 Before we do anything, we need to get some data into R.
 You can see below my feeble attempt to read in the data from 2019.
 I mean... it works (you can try it), but my computer is in danger!
 
-```{r read_data_bad}
+```{r read_data_bad, message=FALSE}
 setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRS_Conf2020")
 ds <- read_csv("world-happiness/2019.csv")
 ```
 
 We can do better than this!
 
+### practice
 ```{r read_data_good}
 # read in the data using a relative path
 # if you ran the code above feel free to use 'ds' when reimporting the data
@@ -89,7 +208,7 @@ glimpse(ds)
 
 Before we go any further, we need to deal with these names.
 Spaces are generally not allowed in column names in R (here R is forced to accept them by using the backticks ``).
-A really handy way to do this is by using the 'janitor' package.
+A really handy way to do this is by using the ```janitor``` package.
 
 ```{r clean_names}
 ds = janitor::clean_names(ds)
@@ -103,7 +222,7 @@ glimpse(ds)
 
 Okay, that looks much better!
 
-# Explore
+## Explore
 
 Let's explore our data a little bit.
 I'm from Greece and was curious to see how Greece ranks in this survey.
@@ -112,6 +231,7 @@ I'm from Greece and was curious to see how Greece ranks in this survey.
 ds %>% filter(country_or_region == "Greece")
 ```
 
+### practice
 Feel free to explore these data a little bit too!
 ```{r }
 # pick a country (whichever country) and see where it ranks
@@ -119,7 +239,7 @@ Feel free to explore these data a little bit too!
 
 ```
 
-# Plots
+## Plot
 
 Let's play around with plots a little bit.
 Here I've made a lollipop plot of the 10 happiest countries, ordered by their overall score.
@@ -137,10 +257,11 @@ ds %>%
   labs(x = "Overall happiness score", y = "")
 ```
 
-# Analysis
+### practice
 
 ```{r your_plot}
 # feel free to practice ggplot here if you like and plot whatever you find interesting.
 # the data for previous years is also available so you could explore how the ranking of countries may have changed.
 ```
 
+## Analyse
