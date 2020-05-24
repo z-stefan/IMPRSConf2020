@@ -84,12 +84,12 @@ If you like the CC-BY license, a software license that gives similar permissions
 So how do we add a license to our project?
 You can do this really easily from GitHub:
 
-1. Click on ```Create new file```
+1. Click on `Create new file`
 2. Name your new file "LICENSE"
-3. Click on ```Choose a license template```
+3. Click on `Choose a license template`
 4. Select the MIT license (you can also preview your changes at this point)
 5. Add an informative commit message
-6. Click on ```Commit directly to the master branck```
+6. Click on `Commit directly to the master branck`
 
 Wow, we've actually made a change to this project!!
 This means that you now have a file on your GitHub project that doesn't exist on the project version stored locally on your computer.
@@ -119,10 +119,10 @@ If reproducing your analysis takes a while (e.g. because one/some of the models 
 
 #### Practice
 You'll notice that GitHub really tries to get people to add README files.
-It's already asking you to ```Add a README```, so let's not disappoint GitHub!
+It's already asking you to `Add a README`, so let's not disappoint GitHub!
 To create a README file:
 
-1. Click on the ```Add a README``` button
+1. Click on the `Add a README` button
 2. Edit the file to include relevant information (you don't need to spend too much time on this right now)
 3. Write an informative commit message
 4. Commit your changes
@@ -135,7 +135,7 @@ Another important piece of documentation to share along with your data is a code
 Codebook is perhaps a confusing name for this, as it actually documents your **data**.
 This should explain what the different variables mean, what values they can take, what their labels are and mean.
 
-The ```codebook``` package can be used to automate the creation of machine-readable codebooks.
+The `codebook` package can be used to automate the creation of machine-readable codebooks.
 
 ## Folder structure
 It's generally a good idea to use a project-oriented workflow, such that everything that is needed to reproduce your project is contained in **one folder**.
@@ -165,27 +165,29 @@ Seriously, though R projects:
   * Everything that someone may need to reproduce your analysis **lives in the same project folder**.
 * Start in a new session, giving you a clean environment without any loaded data, functions, or packages.
   * This way you know that anything that happens when running your script is because of what exists in your script.
-  * i.e., no more ```rm(list = ls())```
+  * i.e., no more `rm(list = ls())`
 * Set the working directory to the project root
   * This way you can use relative paths starting from the project root that will work on **anyone's** computer, not just yours!
-  * i.e., no more ```setwd("C:\Users\path/only/you/have")```
+  * i.e., no more `setwd("C:\Users\path/only/you/have")`
 
 For this project, we created an R project from version control.
 You can also create a new project in a new folder or in an existing folder.
-You can create R Projects easily from ```File``` -> ```New project```, or from the other shortcuts on the toolbar.
+You can create R Projects easily from `File` -> `New project`, or from the other shortcuts on the toolbar.
 
-You'll know that you're using R Projects, because they create an icon in your folder with the extension .RProj.
-When you want to go back to working on that project, don't open the individual scripts you want to work on, but click on the .RProj file instead.
+You'll know that you're using R projects, because they create an icon in your folder with the extension `.Rproj`.
+When you want to go back to working on that project, don't open the individual scripts you want to work on, but click on the `.Rproj` file instead.
 That will open a fresh R session for you.
 
 We now have a portable, well-documented project to work with, let's look at some code!
 
 # Example code
 For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
-The data come from [kaggle](https://www.kaggle.com/) and you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
+I downloaded these data from [kaggle](https://www.kaggle.com/)--you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
 
-## Load packages
-It's generally nice to load your packages at the beginning of the script.
+Base R comes with a lot of functions for wrangling and analysing data, but you can add even more functionality through packages.
+In this workshop, I'll be using packages from the [`tidyverse`](https://www.tidyverse.org/), an "opinionated collection of R packages [...] with an underlying philosophy, grammar, and data structures".
+
+Generally speaking, it's nice to load your packages at the beginning of the script.
 That way whoever is looking at your script knows what packages they will need.
 I like listing the install command at the beginning as well (commented out), so people can install packages if they want to.
 
@@ -194,7 +196,6 @@ I like listing the install command at the beginning as well (commented out), so 
 # install.packages("janitor")
 # install.packages("tidyr")
 # install.packages("dplyr")
-# install.packages("magrittr")
 # install.packages("ggplot2")
 
 # to read in data as tibbles
@@ -205,8 +206,6 @@ library(janitor)
 library(tidyr)
 # for wrangling data
 library(dplyr)
-# for pipes
-library(magrittr)
 # for beautiful plots
 library(ggplot2)
 ```
@@ -230,10 +229,21 @@ By the end of the workshop you'll (hopefully) know of better ways to help others
 sessionInfo()
 ```
 
-## Read in data (relative paths)
+## Relative paths
 Before we do anything, we need to get some data into R.
+Every time you want to read in data, import functions from a script, or export any files, you'll need to point to unique locations in your folders.
+
+As I mentioned before, it's important to use **relative paths** as opposed to **absolute paths** when you do that.
+An absolute path starts from the root directory and lists the full path from your root directory to the location you're trying to point to.
+The problem with that is that the chances two people share an absolute path to any file are vanishingly small.
+So, every time you include an absolute path in your scripts, you are writing code guaranteed to not work on someone else's computer.
+Changing that code to the correct path is not that difficult, but it's also very easy to write relative paths instead, so that's what we're going to do.
+A relative path does not start from the root, but rather from a given working directory.
+Because we're using R projects, that given working directory is the folder in which the .Rproj file is located.
+
+Now we know this, let's read in some data!
 You can see below my feeble attempt to read in the data from 2019.
-I mean... it works (you can try it), but my computer is in danger!
+I mean... it works, but my computer is in danger!
 
 ```{r read_data_bad, message=FALSE}
 setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRSConf2020")
@@ -248,7 +258,7 @@ We can do better than this!
 
 ```
 Hint 1: you don't need to set the working directory anymore, R Projects do that for you.
-Hint 2: you might want to use the 'here' package to create the relative paths.
+Hint 2: you might want to use the `here` package^[if you do, don't forget to include it in the 'Load packages' section] to create the relative paths.
 
 Now that we got our data into R, let's see what it looks like!
 ```{r glimpse_data}
@@ -257,8 +267,8 @@ glimpse(ds)
 ```
 
 Before we go any further, we need to deal with these names.
-Spaces are generally not allowed in column names in R (here R is forced to accept them by using the backticks ``).
-A really handy way to do this is by using the ```janitor``` package.
+Spaces are generally not allowed in column names^[Avoiding spaces is generally a good idea when naming folders or files too.] in R (here R is using the backticks `` to allow the spaces).
+A really handy way to get clean names when using  this is by using the ```janitor``` package.
 ```{r clean_names}
 ds = janitor::clean_names(ds)
 ```
@@ -271,11 +281,10 @@ glimpse(ds)
 Okay, that looks much better!
 
 ## Explore
-
 Let's explore our data a little bit.
 I'm from Greece and was curious to see how Greece ranks in this survey.
-
 ```{r greece_happiness}
+# In R, '%>%' is the pipe symbol, which takes the output of a previous function and passes it on as the input to the next function 
 ds %>% filter(country_or_region == "Greece")
 ```
 
@@ -288,7 +297,7 @@ Feel free to explore these data a little bit too!
 ```
 
 ## Plot
-Let's play around with plots a little bit.
+We can also play around with plots a little bit.
 Here I've made a lollipop plot of the 10 happiest countries, ordered by their overall score.
 
 ```{r rank_lollipop}
@@ -304,10 +313,12 @@ ds %>%
   labs(x = "Overall happiness score", y = "")
 ```
 
+Well according to this, I should be happy to have moved to the Netherlands!
+
 #### Practice (optional)
 ```{r your_plot}
-# feel free to practice ggplot here if you like and plot whatever you find interesting.
-# the data for previous years is also available so you could explore how the ranking of countries may have changed.
+# feel free to practice your ggplot2 skills here if you like--you can plot whatever you find interesting.
+# the data for previous years are also available so, for example, you could explore how the ranking of countries may have changed.
 ```
 
 # Binder
