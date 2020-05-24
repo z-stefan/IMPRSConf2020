@@ -257,8 +257,13 @@ We can do better than this!
 # if you ran the code above feel free to use 'ds' when reimporting the data
 
 ```
-Hint 1: you don't need to set the working directory anymore, R Projects do that for you.
-Hint 2: you might want to use the `here` package^[if you do, don't forget to include it in the 'Load packages' section] to create the relative paths.
+**Hint**: you don't need to set the working directory anymore, R projects do that for you.
+
+You might want to use the `here` package^[if you do, don't forget to include it in the 'Load packages' section] to create the relative paths.
+```{r read_data_better}
+
+```
+
 
 Now that we got our data into R, let's see what it looks like!
 ```{r glimpse_data}
@@ -268,7 +273,7 @@ glimpse(ds)
 
 Before we go any further, we need to deal with these names.
 Spaces are generally not allowed in column names^[Avoiding spaces is generally a good idea when naming folders or files too.] in R (here R is using the backticks `` to allow the spaces).
-A really handy way to get clean names when using  this is by using the ```janitor``` package.
+A really handy way to get clean names when using  this is by using the `janitor` package.
 ```{r clean_names}
 ds = janitor::clean_names(ds)
 ```
