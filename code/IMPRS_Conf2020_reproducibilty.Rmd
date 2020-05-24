@@ -237,6 +237,8 @@ As I mentioned before, it's important to use **relative paths** as opposed to **
 An absolute path starts from the root directory and lists the full path from your root directory to the location you're trying to point to.
 The problem with that is that the chances two people share an absolute path to any file are vanishingly small.
 So, every time you include an absolute path in your scripts, you are writing code guaranteed to not work on someone else's computer.
+To make this point, type `getwd()` in your console and share the path you got on mentimeter!
+
 Changing that code to the correct path is not that difficult, but it's also very easy to write relative paths instead, so that's what we're going to do.
 A relative path does not start from the root, but rather from a given working directory.
 Because we're using R projects, that given working directory is the folder in which the .Rproj file is located.
@@ -252,19 +254,25 @@ ds <- read_csv("raw-data/2019.csv")
 
 #### Practice
 We can do better than this!
-```{r read_data_good}
+```{r read_data_exercise1}
 # read in the data using a relative path
 # if you ran the code above feel free to use 'ds' when reimporting the data
 
 ```
 **Hint**: you don't need to set the working directory anymore, R projects do that for you.
 
-You might want to use the `here` package^[if you do, don't forget to include it in the 'Load packages' section] to create the relative paths.
-```{r read_data_better}
+An even better way to use relative paths is the `here` package.
+`here` will look for certain files (e.g. an .Rproj or a .here file) to use as the root directory.
+This is useful for R Markdown files, because they use as the working directory the folder in which they are located.
+You can test this by running `getwd()` inside a code chunk and then in your console.
+
+As always in R, you can install the `here` package by running `install.packages("here")` and load it by running `library(here)`.
+To learn more about this you can type `?here::here()` in your console.
+```{r read_data_exercise2}
 
 ```
 
-
+## Data tidying and plotting
 Now that we got our data into R, let's see what it looks like!
 ```{r glimpse_data}
 # glimpse is a function from the dplyr package that gives you a, well, glimpse of your tibbles.
@@ -285,7 +293,6 @@ glimpse(ds)
 
 Okay, that looks much better!
 
-## Explore
 Let's explore our data a little bit.
 I'm from Greece and was curious to see how Greece ranks in this survey.
 ```{r greece_happiness}
@@ -293,7 +300,6 @@ I'm from Greece and was curious to see how Greece ranks in this survey.
 ds %>% filter(country_or_region == "Greece")
 ```
 
-#### Practice (optional)
 Feel free to explore these data a little bit too!
 ```{r }
 # pick a country (whichever country) and see where it ranks
@@ -301,10 +307,8 @@ Feel free to explore these data a little bit too!
 
 ```
 
-## Plot
 We can also play around with plots a little bit.
 Here I've made a lollipop plot of the 10 happiest countries, ordered by their overall score.
-
 ```{r rank_lollipop}
 ds %>%
   filter(overall_rank <= 10) %>%
@@ -320,10 +324,17 @@ ds %>%
 
 Well according to this, I should be happy to have moved to the Netherlands!
 
-#### Practice (optional)
+Feel free to practice your ggplot2 skills here if you like.you can plot whatever you find interesting.
 ```{r your_plot}
-# feel free to practice your ggplot2 skills here if you like--you can plot whatever you find interesting.
-# the data for previous years are also available so, for example, you could explore how the ranking of countries may have changed.
+# you can plot whatever you find interesting
+# the data for previous years are also available so, for example, you could explore how the ranking of countries may have changed
+
 ```
 
 # Binder
+As I mentioned in the 'Session Info' section, software versions can easily break your code.
+Sharing the versions of the software you used is helpful, but installing older versions of packages is a lot of work.
+Wouldn't it be even better if you could share a version of your project that comes with all the right software versions?
+Wouldn't it be ever betterer if this was online and people didn't need to download **anything**?
+What I'm describing here is called a **Binder**: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
+

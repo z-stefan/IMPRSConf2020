@@ -1,0 +1,5 @@
+install.packages("readr")
+install.packages("janitor")
+install.packages("tidyr")
+install.packages("dplyr")
+install.packages("ggplot2")
