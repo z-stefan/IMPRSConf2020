@@ -34,7 +34,7 @@ You also don't need to be super comfortable with Git.
 We will not be doing anything particularly advanced here and I will always include the commands you will need.
 In fact, everything we are doing should be possible through the R Studio IDE for git.
 
-# Some basics
+# Getting started
 ## Definitions
 Before we get started, it's probably useful to agree on some definitions.
 Thrilling stuff, I know, but bear with me.
@@ -52,7 +52,7 @@ You're in this workshop already, so I'm guessing you have your own answers to th
 
 So let's get started on **how to make your analyses more reproducible**.
 
-# Set up
+# Project set-up
 Most of what we'll cover today does not actually involve much code--we'll mostly work on setting up projects with reproducibility in mind.
 
 ## Documentation
@@ -75,13 +75,13 @@ But...
 
 ![](images/goldblum.gif)
 
-There are **many** licenses out there that are well-recognised and  should cover whatever it is you want people to be able to do with your work.
+There are **many** licenses out there that are well-recognised and should cover whatever it is you want people to be able to do with your work.
 You may have heard of the Creative Commons (CC) licenses.
-There are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
+These are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
 If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
 
-#### practice
-Okay so how do we add a license to our project?
+#### Practice
+So how do we add a license to our project?
 You can do this really easily from GitHub:
 
 1. Click on ```Create new file```
@@ -91,33 +91,35 @@ You can do this really easily from GitHub:
 5. Add an informative commit message
 6. Click on ```Commit directly to the master branck```
 
-Okay, we've actually made a change to this project!!
-Note that now you have a file on your GitHub project that doesn't exist on your local version of the project.
-It is now time to **pull** from GitHub.
+Wow, we've actually made a change to this project!!
+This means that you now have a file on your GitHub project that doesn't exist on the project version stored locally on your computer.
+To get the file from GitHub to your local machine, you need to **pull** from GitHub.
 Go to your R Studio and click on your Git tab (on the pane where your Environment is, by default on the top right).
-There you will see a light blue arrow going down.
+There you will see a light blue arrow facingdownward.
 Click on it!
 
 You should now see the LICENSE file if you look at your folder!
 
 ### README
-Another important piece of documentation you should include in **every single project** is a README file.
-What you should include in your README depends on the project you're sharing, but it should generally include information on:
+Now people know how they can use your work, but they don't know what your work is and whether they would want to use it!
+This brings to another crucial piece of documentation you should include in **every single project**--the README file.
+The contents of your README will depend on the project you're sharing, but it should generally cover:
 
 * what your project is about
 * installation instructions
-* prerequisites
+* prerequisites (e.g. required software)
 * license information
-* contributors
+* other contributors
 
-I'm going to assume that you'd mostly be sharing code to allow other to reproduce your results.
-In that case, you should also include instructions on the order in which people should run your scripts.
 
-GitHub really tries to get people to add README files.
-You'll see that it's already asking you to ```Add a README```
+The above are sections you'd expect to see in any project shared on GitHub.
+When sharings scientific code that's associated with a publication, you should also share a 'reproducibility recipe'.
+By that I mean telling people in what order they should run your scripts, in which script you run the analyses that are reported in your manuscript etc.
+If reproducing your analysis takes a while (e.g. because one/some of the models takes a few hours to converge) that would also be useful information to include.
 
-#### practice
-So let's not disappoint GitHub!
+#### Practice
+You'll notice that GitHub really tries to get people to add README files.
+It's already asking you to ```Add a README```, so let's not disappoint GitHub!
 To create a README file:
 
 1. Click on the ```Add a README``` button
@@ -125,36 +127,68 @@ To create a README file:
 3. Write an informative commit message
 4. Commit your changes
 
-Again, make sure to go back to your R Studio and pull the changes you made from GitHub to your local repository.
+Again, make sure to go back to your R Studio and **pull your changes** from GitHub to your local repository.
 
 
 ### Codebook
+Another important piece of documentation to share along with your data is a codebook.
+Codebook is perhaps a confusing name for this, as it actually documents your **data**.
+This should explain what the different variables mean, what values they can take, what their labels are and mean.
 
+The ```codebook``` package can be used to automate the creation of machine-readable codebooks.
 
-## R Projects
-If you're seeing this file, you're actually already using an R project! That's **awesome**.
+## Folder structure
+It's generally a good idea to use a project-oriented workflow, such that everything that is needed to reproduce your project is contained in **one folder**.
+
+Within that root project folder, you should organise your files in subfolders.
+The specifics of what files you have will vary, but generally:
+
+* have separate subfolders for your code, data, and manuscript
+* use informative names for your subfolders (e.g. code, data, manuscript)
+* separate your raw data from your processed data
+  * ideally you never make any changes to your raw data manually: it's best to do all your processing with a script and save a copy of the processed files in a different folder
+
+You can also check out some standardised formats, e.g, the [DRESS protocol](https://www.projecttier.org/tier-protocol/dress-protocol/).
+
+### R Projects
+R makes it really easy to use projects!
+In fact, If you're seeing this file, you're actually already using an R project!
+That's **awesome**.
+
 What's so great about R projects you may ask?
-
-Well, they:
-
-* Are self-contained.
-  * Everything that someone may need to reproduce your analysis **should live in the same project folder**.
-* Start in a new session, giving you a clean environment without any loaded data, functions, or packages.
-* Set the working directory to the project root, meaning you can use relative paths that will work on **anyone's** computer, not just yours! We'll talk about relative paths more later on.
-
-And if that's not enough, they can also save your computer from arson!
+Well, for one, they can save your computer from [Jenny Bryan's wrath](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/).
 ![](images/computer_on_fire.PNG)
 
+Seriously, though R projects:
+
+* Are self-contained.
+  * Everything that someone may need to reproduce your analysis **lives in the same project folder**.
+* Start in a new session, giving you a clean environment without any loaded data, functions, or packages.
+  * This way you know that anything that happens when running your script is because of what exists in your script.
+  * i.e., no more ```rm(list = ls())```
+* Set the working directory to the project root
+  * This way you can use relative paths starting from the project root that will work on **anyone's** computer, not just yours!
+  * i.e., no more ```setwd("C:\Users\path/only/you/have")```
+
+For this project, we created an R project from version control.
+You can also create a new project in a new folder or in an existing folder.
+You can create R Projects easily from ```File``` -> ```New project```, or from the other shortcuts on the toolbar.
+
+You'll know that you're using R Projects, because they create an icon in your folder with the extension .RProj.
+When you want to go back to working on that project, don't open the individual scripts you want to work on, but click on the .RProj file instead.
+That will open a fresh R session for you.
+
+We now have a portable, well-documented project to work with, let's look at some code!
+
+# Example code
+For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
+The data come from [kaggle](https://www.kaggle.com/) and you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
+
+## Load packages
 It's generally nice to load your packages at the beginning of the script.
 That way whoever is looking at your script knows what packages they will need.
 I like listing the install command at the beginning as well (commented out), so people can install packages if they want to.
 
-
-## Folder structure
-
-
-# Example code
-## Install packages
 ```{r load_packages, collapse=TRUE}
 # install.packages("readr")
 # install.packages("janitor")
@@ -196,10 +230,7 @@ By the end of the workshop you'll (hopefully) know of better ways to help others
 sessionInfo()
 ```
 
-## Read data
-For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
-The data come from [kaggle](https://www.kaggle.com/) and you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
-
+## Read in data (relative paths)
 Before we do anything, we need to get some data into R.
 You can see below my feeble attempt to read in the data from 2019.
 I mean... it works (you can try it), but my computer is in danger!
@@ -209,20 +240,17 @@ setwd("C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRSConf2020")
 ds <- read_csv("raw-data/2019.csv")
 ```
 
+#### Practice
 We can do better than this!
-
-### practice
 ```{r read_data_good}
 # read in the data using a relative path
 # if you ran the code above feel free to use 'ds' when reimporting the data
 
 ```
-
-Hint: you might want to use the 'here' package to create the relative paths.
-
+Hint 1: you don't need to set the working directory anymore, R Projects do that for you.
+Hint 2: you might want to use the 'here' package to create the relative paths.
 
 Now that we got our data into R, let's see what it looks like!
-
 ```{r glimpse_data}
 # glimpse is a function from the dplyr package that gives you a, well, glimpse of your tibbles.
 glimpse(ds)
@@ -231,13 +259,11 @@ glimpse(ds)
 Before we go any further, we need to deal with these names.
 Spaces are generally not allowed in column names in R (here R is forced to accept them by using the backticks ``).
 A really handy way to do this is by using the ```janitor``` package.
-
 ```{r clean_names}
 ds = janitor::clean_names(ds)
 ```
 
 Let's take a look at what this has done:
-
 ```{r check_names}
 glimpse(ds)
 ```
@@ -253,7 +279,7 @@ I'm from Greece and was curious to see how Greece ranks in this survey.
 ds %>% filter(country_or_region == "Greece")
 ```
 
-### practice
+#### Practice (optional)
 Feel free to explore these data a little bit too!
 ```{r }
 # pick a country (whichever country) and see where it ranks
@@ -262,7 +288,6 @@ Feel free to explore these data a little bit too!
 ```
 
 ## Plot
-
 Let's play around with plots a little bit.
 Here I've made a lollipop plot of the 10 happiest countries, ordered by their overall score.
 
@@ -279,11 +304,10 @@ ds %>%
   labs(x = "Overall happiness score", y = "")
 ```
 
-### practice
-
+#### Practice (optional)
 ```{r your_plot}
 # feel free to practice ggplot here if you like and plot whatever you find interesting.
 # the data for previous years is also available so you could explore how the ranking of countries may have changed.
 ```
 
-## Analyse
+# Binder
