@@ -17,36 +17,39 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 In this workshop we'll go through some basics on how to create, structure, and document reproducible projects in R.
-By the end of this workshop you will have created an online version of that project that everyone can interact with **without having to download anything**. In the process you'll also get some practice with git and GitHub.
+By the end of this workshop you will have created an online version of that project that everyone can interact with **without having to download anything**. In the process you'll also get some practice with Git and GitHub.
 
 Prerequisites:
 
 * [R](https://www.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/download/) are installed
-* git is installed (see [here](https://happygitwithr.com/install-git.html) for a guide on how to install git on different operating systems)
-* git and RStudio have been connected (see [here](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN) for a guide on how to do that)
+* Git is installed (see [here](https://happygitwithr.com/install-git.html) for a guide on how to install Git on different operating systems)
+* Git and RStudio have been connected (see [here](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN) for a guide on how to do that)
 * you have created a [GitHub](https://github.com) account
 * you have created an R project with version control from [here](https://github.com/eirini-zormpa/IMPRSConf2020).
 
 Your level of R proficiency doesn't matter for this workshop, most interaction with code will be basically incidental.
 That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling, plotting, or analysis).
 
-You also don't need to be comfortable with Git and GitHub.
+You don't need to be comfortable with Git and GitHub to follow this workshop.
 Everything we'll be doing here is quite simple and should be possible to do through RStudio.
 
 # Getting started
 ## Definitions
 Before we get into it, it's probably useful to agree on some definitions.
 Thrilling stuff, I know, but bear with me.
-Reproducibility has been taken to mean a variety of things, but here I go by this definition:
+Reproducibility has been taken to mean a variety of things, but here I go by this:
 
-> "Reproducibility is the ability to use someone else's data and code to get the same results they did."
+> Reproducibility is the ability to use someone else's data and code to get the same results they did.
 
-You could also call that *computational reproducibility*.
-I quite like the chart from the [Turing Way](https://the-turing-way.netlify.app/reproducibility/03/definitions), reproduced below [@turing_way2019]:
+You could also call that *computational reproducibility* [@stodden2014].
+You'll notice that that's not the same reproducibility as in the 'reproducibility crisis' that's been discussed in the field of psychology so much the last decade.
+I would call that a'replicability crisis^[I'm not claiming that one term is more or less correct than the other--this is purely for the sake of clarity.]'.
+
+The difference should becie more obvious when looking at this chart from the [Turing Way](https://the-turing-way.netlify.app/reproducibility/03/definitions) [@turing_way2019]:
 
 ![](images/turing_way_reproducibility.PNG)
 
-An assumption implicit in all this is that **your code and data are available online**.
+**IMPORTANT**: An assumption implicit in all this is that **your code and data are available online**.
 We won't cover where to share data and code in this workshop, but feel free to ask if you have any questions about that!
 
 ## Why does reproducibility matter?
@@ -61,13 +64,64 @@ Use the code ------.
 Now let's get started on **how to make your analyses more reproducible**.
 
 # Project set-up
-Most of what we'll cover today does not actually involve much code--we'll mostly work on setting up projects with reproducibility in mind^[You can also automate some of this stuff with the `rrtools` package, but for a basic project like this we can take things a bit slower].
+In general, a good place to start is, well, the beginning--when you're setting up your projects.
+It's important to set up your projects with reproducibility in mind.
 In this section, we'll discuss :
 
-1. how to **document your projects** such that everyone (including future you) will be better able to understand and reproduce your work and
-2. how to **organise your projects** such that they are easy to share and to navigate
+1. how to **organise your projects** such that they are easy to share and to navigate and
+2. how to **document your projects** such that everyone (including future you) will be better able to understand and reproduce your work
+
+You can automate the project set-up and documentation with packages like [`rrtools`](https://github.com/benmarwick/rrtools).
+This project is quite simple though so we'll do each step manually.
+
+## Folder structure
+You'll make both your and other people's life easier by using a good folder structure.
+Even if you don't care about reproducibility, a sensible folder structure will help keep you organised and there's no downsides to that!
+A good folder structure can also help people understand where to look for things when they're trying to reuse or reproduce your work.
+So, what do I actually mean by *good folder structure*?
+
+1. Each project should have its own separate directory.
+2. Everything that is needed to reproduce that project should be contained within **the same folder**.
+    * this way, when you're done you just share **that one folder** and feel confident you haven't forgotten anything
+3. Within that folder, files should be organised in clearly named subfolders (e.g. data, code, manuscript)
+
+**IMPORTANT**
+Always separate your **raw data** from your **processed data**.
+Ideally, you will never make any changes to your raw data manually: it's best to do all your processing with a script and save a copy of the processed files in a different folder
+
+You can also check out some standardised formats, e.g, the [DRESS protocol](https://www.projecttier.org/tier-protocol/dress-protocol/) or the [cookiecutter project](https://github.com/bvreede/good-enough-project) by [Barbara Vreede](https://github.com/bvreede) based on Wilson et al. [-@wilson2017].
+
+### R Projects
+R provides a great way to increase the reproducibility of your projects: R projects.
+R projects are wonderful for reproducibility because they:
+
+* Are self-contained.
+  * Everything that someone may need to reproduce your analysis **lives in the same project folder**.
+* Start in a new session, giving you a clean environment without any loaded data, functions, or packages.
+  * This way you know that anything that happens when running your script is because of what exists in your script.
+  * i.e., no more `rm(list = ls())`
+* Set the working directory to the project root
+  * This way you can use relative paths starting from the project root that will work on **anyone's** computer, not just yours!
+  * i.e., no more `setwd("C:\Users\path\only\you\have")`
+
+And if that's not enough, they can save your computer from [Jenny Bryan's wrath](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/).
+![](images/computer_on_fire.PNG)
+
+Creating an R project is actually the first thing I do when I start working on a new project.
+That's also what we did at the beginning of this workshop: we created this project from a GitHub repository.
+You can also create a new project in a new folder or in an existing folder  and connect it with a remote GitHub (or GitLab, Bitbucket etc.) repository later.
+I would encourage you to link your R projects to a GitHub (or other) repository **from the beginning** and **keep these remote repositories updated**.
+
+For future reference:
+
+* Create an R project from `File` -> `New project`, or from the other shortcuts on the toolbar
+* If you're not creating your project from a GitHub repository, enable version control for your project from the Project menu on the top right -> `Project options...` -> `Git/SVN`
+* You'll know that you're using an R projects if you see a file with the `.Rproj` extension.
+* To open an R project double-click on the `.Rproj` file or go to the Project menu -> `Open project`.
+* Either of these will open a fresh R session for you.
 
 ## Documentation
+Now that our project is set up, it's really important to have good documentation.
 Good documentation is vital for making your work accessible.
 Accessibility in the context of data and code can refer to many things: Is something available online? Is it easy to find? Is it shared in a non-proprietary format?
 But even when code and data meet all those criteria, I would say that they're not accessible if people don't understand them or don't know how to use them.
@@ -197,47 +251,6 @@ That means it's time to **push** our changes to GitHub:
 5. Write an informative commit message
 6. Push to GitHub!
 
-## Folder structure
-Another way to make it easy for people to understand your project is to use a good folder structure.
-Honestly, even if you don't care about reproducibility, good folder structure helps with organisation and there's no downsides to that!
-So, what do I mean by *good folder structure*?
-
-1. Each project should have its own separate directory.
-2. Everything that is needed to reproduce that project should be contained within **the same folder**.
-    * this way, when you're done you just share **that one folder** and feel confident you haven't forgotten anything
-3. Within that folder, files should be organised in clearly named subfolders (e.g. data, code, manuscript)
-
-**IMPORTANT**
-Always separate your **raw data** from your **processed data**.
-Ideally, you will never make any changes to your raw data manually: it's best to do all your processing with a script and save a copy of the processed files in a different folder
-
-You can also check out some standardised formats, e.g, the [DRESS protocol](https://www.projecttier.org/tier-protocol/dress-protocol/).
-
-### R Projects
-R projects are absolutely wonderful for reproducibility.
-They:
-
-* Are self-contained.
-  * Everything that someone may need to reproduce your analysis **lives in the same project folder**.
-* Start in a new session, giving you a clean environment without any loaded data, functions, or packages.
-  * This way you know that anything that happens when running your script is because of what exists in your script.
-  * i.e., no more `rm(list = ls())`
-* Set the working directory to the project root
-  * This way you can use relative paths starting from the project root that will work on **anyone's** computer, not just yours!
-  * i.e., no more `setwd("C:\Users\path\only\you\have")`
-
-And if that's not enough, they can save your computer from [Jenny Bryan's wrath](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/).
-![](images/computer_on_fire.PNG)
-
-You know, if you're seeing this file, you're already using an R project!
-That's **awesome**.
-For this project, we created an R project from version control.
-You can also create a new project in a new folder or in an existing folder.
-You can create R Projects easily from `File` -> `New project`, or from the other shortcuts on the toolbar.
-
-You'll know that you're using R projects, because they create an icon in your folder with the extension `.Rproj`.
-When you want to go back to working on that project, don't open the individual scripts you want to work on, but click on the `.Rproj` file instead.
-That will open a fresh R session for you.
 
 Now we have a portable, well-documented project to work with!
 
