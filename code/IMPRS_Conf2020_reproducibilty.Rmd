@@ -45,11 +45,12 @@ You could also call that *computational reproducibility* [@stodden2014].
 You'll notice that that's not the same reproducibility as in the 'reproducibility crisis' that's been discussed in the field of psychology so much the last decade.
 I would call that a'replicability crisis^[I'm not claiming that one term is more or less correct than the other--this is purely for the sake of clarity.]'.
 
-The difference should becie more obvious when looking at this chart from the [Turing Way](https://the-turing-way.netlify.app/reproducibility/03/definitions) [@turing_way2019]:
+The difference should become more obvious when looking at this chart from the [Turing Way](https://the-turing-way.netlify.app/reproducibility/03/definitions) [@turing_way2019]:
 
 ![](images/turing_way_reproducibility.PNG)
 
 **IMPORTANT**: An assumption implicit in all this is that **your code and data are available online**.
+Without those computational reproducibility is next to impossible.
 We won't cover where to share data and code in this workshop, but feel free to ask if you have any questions about that!
 
 ## Why does reproducibility matter?
@@ -121,10 +122,10 @@ For future reference:
 * Either of these will open a fresh R session for you.
 
 ## Documentation
-Now that our project is set up, it's really important to have good documentation.
-Good documentation is vital for making your work accessible.
-Accessibility in the context of data and code can refer to many things: Is something available online? Is it easy to find? Is it shared in a non-proprietary format?
-But even when code and data meet all those criteria, I would say that they're not accessible if people don't understand them or don't know how to use them.
+Now that our project is set up, it's really important to add good documentation to it.
+Good documentation is vital for making your work findable and accessible, which aids the reproducubility and reusability of your work.
+Code and data need to meet many criteria to be considered accessible: Are they available online? Are they easy to find? Are they shared in a non-proprietary format?
+But even when code and data meet all those criteria, I would say that they're not truly accessible if people don't understand them or don't know how to use them.
 
 As you may have noticed, this project has almost no documentation.
 That's because we'll be making it together!
@@ -132,7 +133,7 @@ That's because we'll be making it together!
 ### License
 I cannot stress how important it is that you **license everything you share**.
 Licenses are crucial because they tell others how they can use your work.
-Because you hold the copyright to your work^[In fact, it is often your university or institute that holds the copyright to the work you created while working there], anyone who wants to use your work should technically ask for your permission to be able to do so.
+Because **you** hold the copyright to your work^[In fact, it is often your university or institute that holds the copyright to the work you created while working there], anyone who'd like to use it should technically ask for your permission to be able to do so.
 For example, if someone wants to use your data in a meta-analysis or if they want to reuse an awesome function you wrote to analyse their data, they would need to ask you first.
 Attaching a license to your work is like giving instructions to others about what they can do with it without having to ask you every time.
 
@@ -144,12 +145,18 @@ But...
 
 ![](images/goldblum.gif)
 
+Yeah don't do that, it's a bad idea!
 The [Open Source Initiative (OSI)](https://opensource.org/licenses) has reviewed and approved enough open source licenses to cover whatever it is you want people to be able to do with your work.
 You can find a nice guide on the most popular licenses [here](https://arstechnica.com/gadgets/2020/02/how-to-choose-an-open-source-license/).
+A simple and very permissive license that you'll come across a lot is the MIT license.
+This requires the original copyright notice be retained and included, other than that people can do whatever they want with the code.
 
-You may have heard of the Creative Commons (CC) licenses.
-These are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
-If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
+This may remind you of the CC-BY license and you'd be right!
+Creative Commons (CC) licenses are great for licensing creative work like presentations or papers and you should definitely use CC licenses in such cases.
+However, you should avoid using CC licenses for your code.
+From the [Creative Commons FAQ](https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software):
+
+>Unlike software-specific licenses, CC licenses do not contain specific terms about the distribution of source code, which is often important >to ensuring the free reuse and modifiability of software. Many software licenses also address patent rights, which are important to software >but may not be applicable to other copyrightable works. Additionally, our licenses are currently not compatible with the major software >licenses, so it would be difficult to integrate CC-licensed work with other free software.
 
 #### How to add a license?
 To attach a license to your projects, just add the license text to a file and share that file with your project.
@@ -246,27 +253,28 @@ That means it's time to **push** our changes to GitHub:
 
 1. Click on `Save` (or `Ctrl + S`.
 2. Go to the `Git` tab--you'll see that there is a blue `M` (for modified) next to this file (IMPRS_Conf2020_reproducibilit.Rmd).
-3. Tick the box next to this file to `add` it.
+3. Tick the box next to this file to `stage` it.
 4. Click on `Commit`. This will open a window showing you the changes and a commit box.
 5. Write an informative commit message
 6. Push to GitHub!
 
-
-Now we have a portable, well-documented project to work with!
-
 # Binder
-Reproducibility can be seen as a spectrum: some analyses are more reproducible than others [@peng2011].
+Awesome! We now have a project that's shared online, findable, portable, and well-documented!
+So are we done?
+Well, our project ticks many boxes, but as many things reproducubility is a sprectrum: soma analyses are more reproducible than others [@peng2011]!
 You can see such a spectrum below:
 
 ![](images/peng_reproducibility_spectrum.jpg)
 
-The project we have created until now is pretty reproducible: the code and data are freely available online and they're pretty well documented.
-But there's still a lot of room for improvement!
+So what's missing from our project?
+Well it's possible that the software we rely on will change and we have not made any provisions for that.
+That's important, because using different **software versions** can easily break your code.
+For example, when R version 4.0.0 was released, this caused many packages to break.
+The main reason why is that R 4.0.0 changed the default behaviour of how to read in characters (used to be as factors, it's now as characters).
 
-That's because software versions can easily break your code.
-Sharing the versions of the software you used is helpful, but installing older versions of packages is a lot of work.
-Wouldn't it be even better if you could share a version of your project that comes with all the right software versions?
-Wouldn't it be ever betterer if this was online and people didn't need to download **anything**?
+Sharing the versions of the software you used is helpful (and we'll see how to do that later), but installing older versions of packages is a lot of work.
+Wouldn't it be better if you could share a version of your project that comes with all the right software versions?
+Wouldn't it be ever better if this was online and people didn't need to download **anything**?
 What I'm describing here is called a **Binder**: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
 
 You can actually see a Binder for this very project by clicking [here](UPDATE)
@@ -300,17 +308,19 @@ You can speed it up by using fewer packages and not including the data (by readi
 
 You can also launch binders from **within R** using the [`holepunch`](https://github.com/karthik/holepunch) package, created by Karthik Ram.
 
+Keep in mind that any changes you make in your Binder **will not be saved**.
+The purpose of a Binder is to share your final results with others and let them play around with/test your code.
+If your Binder has been inactive for more than 10 minutes, it will shut down.
+If you want to make a change to your Binder, you need to change your code locally, push it to GitHub and relaunch your Binder.
 
 # Example code
-For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
+For this workshop, we're using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
 I downloaded these data from [kaggle](https://www.kaggle.com/)--you can find the entry for this particular dataset [here](https://www.kaggle.com/unsdsn/world-happiness).
 
+I like to start my scripts with loading the packages I'll be using--that way whoever is looking at the script knows what packages they will need.
+I also like listing the install command at the beginning (commented out), so people can install packages if they want to.
 Base R comes with a lot of functions for wrangling and analysing data, but you can add even more functionality through packages.
 In this workshop, I'll be using packages from the [`tidyverse`](https://www.tidyverse.org/), an "opinionated collection of R packages [...] with an underlying philosophy, grammar, and data structures".
-
-Generally speaking, it's nice to load your packages at the beginning of the script.
-That way whoever is looking at your script knows what packages they will need.
-I like listing the install command at the beginning as well (commented out), so people can install packages if they want to.
 
 ```{r load_packages, collapse=TRUE}
 # install.packages("readr")
@@ -342,9 +352,7 @@ The reason it's important is that software updates can very easily break your co
 That is, if someone (including yourself) tries to run your code in 5 years, it's quite likely that some parts of it won't work.
 
 If people know what versions last worked (and if they really care), they can always go back and try to reproduce the analysis with those versions.
-That's *a lot* of work for the reproducer, but it's very easy to share, so why not!
 An easy way to report these versions is by printing the session info at the beginning or the end of your analysis.
-By the end of the workshop you'll (hopefully) know of better ways to help others reproduce your code.
 
 ```{r session_info}
 sessionInfo()
@@ -465,7 +473,7 @@ Thank you so much for following along with this workshop, I hope it was useful!
 If you want to learn more about how to make your work more reproducible, I strongly encourage you to take a look at the *Turing Way book*, a 'lightly opinionated guide to reproducible data science'.
 It is super easy to follow guidelines and you'd be hard-pressed to find a more welcoming community.
 
-In terms of R packages for all your reproducibility needs, do checl out Ben Marwick's [`rrtools`](https://github.com/benmarwick/rrtools) package.
+In terms of R packages for all your reproducibility needs, do check out Ben Marwick's [`rrtools`](https://github.com/benmarwick/rrtools) package.
 The `rrtools` package can be used for making a *research compendium* based on the structure of R packages.
 Karthik Ram gave an awesome (and beautifully illustrated) presentation on this at rstudio::conf(2019), the materials for which you can find [here](https://github.com/karthik/rstudio2019).
 
