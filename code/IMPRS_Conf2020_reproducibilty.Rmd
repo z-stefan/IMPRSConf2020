@@ -275,7 +275,7 @@ The main reason why is that R 4.0.0 changed the default behaviour of how to read
 Sharing the versions of the software you used is helpful (and we'll see how to do that later), but installing older versions of packages is a lot of work.
 Wouldn't it be better if you could share a version of your project that comes with all the right software versions?
 Wouldn't it be ever better if this was online and people didn't need to download **anything**?
-What I'm describing here is called a **Binder**: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
+What I'm describing here is called a **Binder** [@binder2017]: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
 
 You can actually see a Binder for this very project by clicking [here](UPDATE)
 
