@@ -27,18 +27,20 @@ Prerequisites:
 * you have created a [GitHub](https://github.com) account
 * you have created an R project with version control from [here](https://github.com/eirini-zormpa/IMPRSConf2020).
 
-Your level of R proficiency really doesn't matter for this, most interaction with code will be basically incidental.
-That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling, plotting, or analysis) if you feel like it.
+Your level of R proficiency doesn't matter for this workshop, most interaction with code will be basically incidental.
+That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling, plotting, or analysis).
 
-You also don't need to be super comfortable with Git.
-We will not be doing anything particularly advanced here and I will always include the commands you will need.
-In fact, everything we are doing should be possible through the RStudio IDE for git.
+You also don't need to be comfortable with Git and GitHub.
+Everything we'll be doing here is quite simple and should be possible to do through RStudio.
 
 # Getting started
 ## Definitions
-Before we get started, it's probably useful to agree on some definitions.
+Before we get into it, it's probably useful to agree on some definitions.
 Thrilling stuff, I know, but bear with me.
-*Reproducibility* has been taken to mean a variety of things, but here by reproducibility I mean *the ability to use someone else's data and code to get the same results they did*.
+Reproducibility has been taken to mean a variety of things, but here I go by this definition:
+
+> "Reproducibility is the ability to use someone else's data and code to get the same results they did."
+
 You could also call that *computational reproducibility*.
 I quite like the chart from the [Turing Way](https://the-turing-way.netlify.app/reproducibility/03/definitions), reproduced below [@turing_way2019]:
 
@@ -54,32 +56,36 @@ You're in this workshop already, so I'm guessing you have your own answers to th
 * reproducibility can make you more organised and save you time if you ever need to go back to some of your analyses.
 
 Head over to Mentimeter and describe with one word why reproducibility matter to **you**!
-Use the code 809822.
+Use the code ------.
 
 Now let's get started on **how to make your analyses more reproducible**.
 
 # Project set-up
-Most of what we'll cover today does not actually involve much code--we'll mostly work on setting up projects with reproducibility in mind.
+Most of what we'll cover today does not actually involve much code--we'll mostly work on setting up projects with reproducibility in mind^[You can also automate some of this stuff with the `rrtools` package, but for a basic project like this we can take things a bit slower].
+In this section, we'll discuss :
+
+1. how to **document your projects** such that everyone (including future you) will be better able to understand and reproduce your work and
+2. how to **organise your projects** such that they are easy to share and to navigate
 
 ## Documentation
-Good documentation is vital for helping others not only reproduce, but also understand your code.
-As I mentioned before, your code and data needs to be available, but if it's completely incomprehensible that's still not very useful!
+Good documentation is vital for making your work accessible.
+Accessibility in the context of data and code can refer to many things: Is something available online? Is it easy to find? Is it shared in a non-proprietary format?
+But even when code and data meet all those criteria, I would say that they're not accessible if people don't understand them or don't know how to use them.
 
 As you may have noticed, this project has almost no documentation.
 That's because we'll be making it together!
 
 ### License
 I cannot stress how important it is that you **license everything you share**.
-Licenses are important because they tell others how they can use your work.
-
-**If you don't attach a license to your code/data/materials/whatever you're severely limiting how people can use it.**.
-
-You hold the copyright of whatever it is you have created.
-As you^[In fact, it is often your university or institute that holds the copyright to the work you created while working there] are the copyright holder, anyone who wants to use your work should technically ask for your permission to be able to do so.
+Licenses are crucial because they tell others how they can use your work.
+Because you hold the copyright to your work^[In fact, it is often your university or institute that holds the copyright to the work you created while working there], anyone who wants to use your work should technically ask for your permission to be able to do so.
 For example, if someone wants to use your data in a meta-analysis or if they want to reuse an awesome function you wrote to analyse their data, they would need to ask you first.
 Attaching a license to your work is like giving instructions to others about what they can do with it without having to ask you every time.
 
-Technically, you could just come up with your own licenses for whatever you share.
+**Sharing your work without a license can discourage people from using it.**
+
+#### Which license though?
+Technically, you could just come up with your own guidelines and share them in a file with your work.
 But...
 
 ![](images/goldblum.gif)
@@ -91,28 +97,47 @@ You may have heard of the Creative Commons (CC) licenses.
 These are great for a lot of creative work, e.g. articles or presentations, but they should generally be avoided for software.
 If you like the CC-BY license, a software license that gives similar permissions is the MIT license.
 
-#### Practice
-So how do we add a license to our project?
-You can do this really easily from GitHub:
+#### How to add a license?
+To attach a license to your projects, just add the license text to a file and share that file with your project.
+This is really easy to do from GitHub.
+Go ahead and follow these steps to create a license for your fork of this project!
 
+##### Practice
 1. Click on `Create new file`
 2. Name your new file "LICENSE"
 3. Click on `Choose a license template`
 4. Select the MIT license (you can also preview your changes at this point)
-5. Add an informative commit message
+5. Add an informative commit message (like "Added license to project.")
 6. Click on `Commit directly to the master branck`
 
 Wow, we've actually made a change to this project!!
 This means that you now have a file on your GitHub project that doesn't exist on the project version stored locally on your computer.
 To get the file from GitHub to your local machine, you need to **pull** from GitHub.
 Go to your RStudio and click on your Git tab (on the pane where your Environment is, by default on the top right).
-There you will see a light blue arrow facingdownward.
+There you will see a light blue arrow facing downward.
 Click on it!
 
 You should now see the LICENSE file if you look at your folder!
+You have successfully pulled from GitHub!
+
+![](images/whoo-hoo.gif)
+
+You want to be keeping your local and remote repositories in sync with each other.
+If you don't you can cause the universally dreaded **CONFLICTS**.
+Conflicts are super annoying and though they usually appear when collaborating with others, you can also do it when collaborating with yourself.
+Trust me.
+
+So, any time you make a change on your documentation on GitHub:
+
+1. preview your changes
+2. write an informative commit message
+3. commit your changes
+4. pull the changes from GitHub to your local repository
+
+We'll also practice **pushing** changes from your local repository to GitHub later on.
 
 ### README
-Now people know how they can use your work, but they don't know what your work is, how to use it, and whether they' would want to use it'd want to!
+Now people know what they can do with your work, but they don't know what your work is, how to use it, and whether they'd want to!
 This brings us to another crucial piece of documentation you should include in every single project--the **README file**.
 The contents of your README will depend on the project you're sharing, but it should generally cover:
 
@@ -124,7 +149,7 @@ The contents of your README will depend on the project you're sharing, but it sh
 
 The above are sections you'd expect to see in any project shared on GitHub.
 When sharings scientific code that's associated with a publication, you should also share a 'reproducibility recipe'.
-By that I mean telling people in what order they should run your scripts, in which script you run the analyses that are reported in your manuscript etc.
+By that I mean you should tell people in what order they should run your scripts, in which script you run the analyses that are reported in your manuscript etc.
 If reproducing your analysis takes a while (e.g. because one/some of the models takes a few hours to converge) that would also be useful information to include.
 
 #### Practice
@@ -137,7 +162,8 @@ To create a README file:
 3. Write an informative commit message
 4. Commit your changes
 
-Again, make sure to go back to your RStudio and **pull your changes** from GitHub to your local repository.
+Again, we've made a change on the GitHub repository that we don't yet have on our local one.
+So make sure to go back to your RStudio and **pull your changes** from GitHub to your local repository.
 
 ### Codebook
 The last important piece of documentation we'll discuss today is the **codebook**.
@@ -155,7 +181,21 @@ Codebooks should include information on:
 * whatever else is considered standard/important in your discipline
 
 The `codebook` package can be used to automate the creation of machine-readable codebooks [@arslan2019].
-I made the codebook for this dataset by following the instructions (here)[https://github.com/rubenarslan/codebook].
+I made the codebook for this dataset by following the instructions [here](https://github.com/rubenarslan/codebook).
+
+#### Practice
+Open the `codebook.Rmd` file and add some metadata following the vignette [here](https://rubenarslan.github.io/codebook/articles/codebook.html).
+
+When you're done, save that file and knit it to look at your changes!
+And yes I said change--we've made a change to this file!
+That means it's time to **push** our changes to GitHub:
+
+1. Click on `Save` (or `Ctrl + S`.
+2. Go to the `Git` tab--you'll see that there is a blue `M` (for modified) next to this file (IMPRS_Conf2020_reproducibilit.Rmd).
+3. Tick the box next to this file to `add` it.
+4. Click on `Commit`. This will open a window showing you the changes and a commit box.
+5. Write an informative commit message
+6. Push to GitHub!
 
 ## Folder structure
 Another way to make it easy for people to understand your project is to use a good folder structure.
@@ -199,7 +239,54 @@ You'll know that you're using R projects, because they create an icon in your fo
 When you want to go back to working on that project, don't open the individual scripts you want to work on, but click on the `.Rproj` file instead.
 That will open a fresh R session for you.
 
-Now that we have a portable, well-documented project to work with, let's finally look at some code!
+Now we have a portable, well-documented project to work with!
+
+# Binder
+Reproducibility can be seen as a spectrum: some analyses are more reproducible than others [@peng2011].
+You can see such a spectrum below:
+
+![](images/peng_reproducibility_spectrum.jpg)
+
+The project we have created until now is pretty reproducible: the code and data are freely available online and they're pretty well documented.
+But there's still a lot of room for improvement!
+
+That's because software versions can easily break your code.
+Sharing the versions of the software you used is helpful, but installing older versions of packages is a lot of work.
+Wouldn't it be even better if you could share a version of your project that comes with all the right software versions?
+Wouldn't it be ever betterer if this was online and people didn't need to download **anything**?
+What I'm describing here is called a **Binder**: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
+
+You can actually see a Binder for this very project by clicking [here](UPDATE)
+
+Binders seem super fancy, but thankfully creating them is super easy!
+We already have everything needed to create one.
+
+Ingredients:
+
+* A public GitHub (or other) repository
+* An `install.R` file
+  * this includes `install.packages()` commands for all the packages you use in a script(+ `knitr` because this is an R Markdown document)
+* A `runtime.txt` file,  containing the day you last ran this code.
+  * in this case `r-2020-05-24`.
+  
+Literally. That is all you need!
+
+To create the Binder:
+
+* Go to the [Binder](https://mybinder.org/) website
+* In `GitHub repository name or URL`, paste the link to your GitHub repository
+* You don't need to fill anything in the `Git branch, tag, or commit` field
+* In the `Path to a notebook file (optional)` field, you'll see a dropdown menu that currently says `File`. Change it to `URL`.
+* In the (now called) `URL to open` field, type 'rstudio'.
+  * this tells binder to launch an RStudio window instead of a jupyter notebook (the default).
+* Click on launch
+* Waaaaiiiiiit
+
+Binder is awesome, but it can be pretty slow.
+You can speed it up by using fewer packages and not including the data (by reading it from an online source for example).
+
+You can also launch binders from **within R** using the [`holepunch`](https://github.com/karthik/holepunch) package, created by Karthik Ram.
+
 
 # Example code
 For this workshop, we'll be using data from the World Happiness Reports (years 2015-2019), a survey used to rank the happiness of people in the participating countries.
@@ -285,12 +372,10 @@ ds <- read_csv("raw-data/2019.csv")
 We can do better than this!
 ```{r read_data_exercise1}
 # read in the data using a relative path
-# if you ran the code above feel free to use 'ds' when reimporting the data
 
 ```
-**Hint**: you don't need to set the working directory anymore, R projects do that for you.
 
-An even better way to use relative paths is the `here` package.
+A great way to use relative paths is the `here` package.
 `here` will look for certain files (e.g. an .Rproj or a .here file) to use as the root directory.
 This is useful for R Markdown files, because they use as the working directory the folder in which they are located.
 You can test this by running `getwd()` inside a code chunk and then in your console.
@@ -298,8 +383,10 @@ You can test this by running `getwd()` inside a code chunk and then in your cons
 As always in R, you can install the `here` package by running `install.packages("here")` and load it by running `library(here)`.
 To learn more about this you can type `?here::here()` in your console.
 ```{r read_data_exercise2}
+# read in the data again using here()
 
 ```
+
 
 ## Data tidying and plotting
 Now that we got our data into R, let's see what it looks like!
@@ -359,51 +446,6 @@ Feel free to practice your ggplot2 skills here if you like.you can plot whatever
 # the data for previous years are also available so, for example, you could explore how the ranking of countries may have changed
 
 ```
-
-# Binder
-Reproducibility can be seen as a spectrum: some analyses are more reproducible than others [@peng2011].
-You can see such a spectrum below:
-
-![](images/peng_reproducibility_spectrum.jpg)
-
-The project we have created until now is pretty reproducible: the code and data are freely available online and they're pretty well documented.
-But there's still a lot of room for improvement!
-
-As I mentioned in the 'Session Info' section, software versions can easily break your code.
-Sharing the versions of the software you used is helpful, but installing older versions of packages is a lot of work.
-Wouldn't it be even better if you could share a version of your project that comes with all the right software versions?
-Wouldn't it be ever betterer if this was online and people didn't need to download **anything**?
-What I'm describing here is called a **Binder**: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
-
-You can actually see a Binder for this very project by clicking [here](UPDATE)
-
-Binders seem super fancy, but thankfully creating them is super easy!
-We already have everything needed to create one.
-
-Ingredients:
-
-* A public GitHub (or other) repository
-* An `install.R` file
-  * this includes `install.packages()` commands for all the packages you use in a script(+ `knitr` because this is an R Markdown document)
-* A `runtime.txt` file,  containing the day you last ran this code.
-  * in this case `r-2020-05-24`.
-  
-Literally. That is all you need!
-
-To create the Binder:
-* Go to the [Binder](https://mybinder.org/) website
-* In `GitHub repository name or URL`, paste the link to your GitHub repository
-* You don't need to fill anything in the `Git branch, tag, or commit` field
-* In the `Path to a notebook file (optional)` field, you'll see a dropdown menu that currently says `File`. Change it to `URL`.
-* In the (now called) `URL to open` field, type 'rstudio'.
-  * this tells binder to launch an RStudio window instead of a jupyter notebook (the default).
-* Click on launch
-* Waaaaiiiiiit
-
-Binder is awesome, but it can be pretty slow.
-You can speed it up by using fewer packages and not including the data (by reading it from an online source for example).
-
-You can also launch binders from **within R** using the [`holepunch`](https://github.com/karthik/holepunch) package, created by Karthik Ram.
 
 # Thank you!
 Thank you so much for following along with this workshop, I hope it was useful!
