@@ -35,17 +35,22 @@ library(here)
 library(readr)
 codebook_data <- read_csv(here("raw-data",  "2019.csv"))
 
+### I have added a name to this dataset as metadata
+metadata(codebook_data)$name <- "World Happiness reports data"
+
+### practice!
+### add temporal coverage metadata to this codebook
+### take a look at the vignette if you're not sure how
+
+
 # omit the following lines, if your missing values are already properly labelled
 codebook_data <- detect_missing(codebook_data,
-    only_labelled = TRUE, # only labelled values are autodetected as
-                                   # missing
+    only_labelled = TRUE, # only labelled values are autodetected as missing
     negative_values_are_missing = FALSE, # negative values are missing values
-    ninety_nine_problems = TRUE,   # 99/999 are missing values, if they
-                                   # are more than 5 MAD from the median
+    ninety_nine_problems = TRUE,   # 99/999 are missing values, if they are more than 5 MAD from the median
     )
 
-# If you are not using formr, the codebook package needs to guess which items
-# form a scale. The following line finds item aggregates with names like this:
+# The following line finds item aggregates with names like this:
 # scale = scale_1 + scale_2R + scale_3R
 # identifying these aggregates allows the codebook function to
 # automatically compute reliabilities.
