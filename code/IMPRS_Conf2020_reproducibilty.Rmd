@@ -28,7 +28,7 @@ Prerequisites:
 * you have created an R project with version control from [here](https://github.com/eirini-zormpa/IMPRSConf2020).
 
 Your level of R proficiency doesn't matter for this workshop, most interaction with code will be basically incidental.
-That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling, plotting, or analysis).
+That being said, you will have a chance to explore some data and practice whatever R skills you feel like practicing (data wrangling and plotting).
 
 You don't need to be comfortable with Git and GitHub to follow this workshop.
 Everything we'll be doing here is quite simple and should be possible to do through RStudio.
@@ -59,8 +59,7 @@ You're in this workshop already, so I'm guessing you have your own answers to th
 * reproducibility is a minimum requirement for verifying research.
 * reproducibility can make you more organised and save you time if you ever need to go back to some of your analyses.
 
-Head over to Mentimeter and describe with one word why reproducibility matter to **you**!
-Use the code ------.
+Click [here](https://www.menti.com/5mob5kig2b) to describe with one word why reproducibility matter to **you**!
 
 Now let's get started on **how to make your analyses more reproducible**.
 
@@ -277,7 +276,7 @@ Wouldn't it be better if you could share a version of your project that comes wi
 Wouldn't it be ever better if this was online and people didn't need to download **anything**?
 What I'm describing here is called a **Binder** [@binder2017]: "A sharable version of a project that can be viewed and interacted within a reproducible computational environment via a web browser" [@turing_way2019].
 
-You can actually see a Binder for this very project by clicking [here](UPDATE)
+You can actually see a Binder for this very project by clicking [here](https://mybinder.org/v2/gh/eirini-zormpa/IMPRSConf2020/master?urlpath=rstudio)
 
 Binders seem super fancy, but thankfully creating them is super easy!
 We already have everything needed to create one.
@@ -374,7 +373,7 @@ I got:
 `[1] "C:/Users/eirin/Documents/MPI Psycholinguistics/Teaching/IMPRSConf2020"`
 
 How far along my path does yours diverge?
-Head to Mentimeter (code ) and tell us how far you got!
+Click on [this link](https://www.menti.com/rvnc99293g) and tell us how far you got!
 
 Changing that code to the correct path is not that difficult, but it's also very easy to write relative paths instead, so that's what we're going to do.
 A relative path does not start from the root, but rather from a given working directory.
@@ -440,7 +439,7 @@ ds %>% filter(country_or_region == "Greece")
 Feel free to explore these data a little bit too!
 ```{r }
 # pick a country (whichever country) and see where it ranks
-# head on over to Mentimeter (code 951314) and tell us which country you picked!
+# go to https://www.menti.com/hbtt4v6ue1 and tell us which country you picked!
 
 ```
 
@@ -473,8 +472,8 @@ Thank you so much for following along with this workshop, I hope it was useful!
 If you want to learn more about how to make your work more reproducible, I strongly encourage you to take a look at the *Turing Way book*, a 'lightly opinionated guide to reproducible data science'.
 It is super easy to follow guidelines and you'd be hard-pressed to find a more welcoming community.
 
-In terms of R packages for all your reproducibility needs, do check out Ben Marwick's [`rrtools`](https://github.com/benmarwick/rrtools) package.
-The `rrtools` package can be used for making a *research compendium* based on the structure of R packages.
+In terms of R packages for all your reproducibility needs, do check out the [`rrtools`](https://github.com/benmarwick/rrtools) package.
+It can be used for making a *research compendium* based on the structure of R packages.
 Karthik Ram gave an awesome (and beautifully illustrated) presentation on this at rstudio::conf(2019), the materials for which you can find [here](https://github.com/karthik/rstudio2019).
 
 # References
